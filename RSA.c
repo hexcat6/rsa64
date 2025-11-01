@@ -54,6 +54,8 @@ uint64_t randomprime() {
     return list[rand() % length];
 }
 
+// greatest common divisor
+// euclidean algorithm
 uint64_t gcd(uint64_t a, uint64_t b) {
     uint64_t t;
     while (b != 0) {
@@ -72,6 +74,7 @@ uint64_t finde(uint64_t p, uint64_t q) {
     return e;
 }
 
+// b^e mod m
 uint64_t modexp(uint64_t base, uint64_t exponent, uint64_t modulus) {
     uint64_t result = 1;
     base = base % modulus;
@@ -84,6 +87,8 @@ uint64_t modexp(uint64_t base, uint64_t exponent, uint64_t modulus) {
     return result;
 }
 
+// modular inverse ax = 1 mod m
+// extended euclidean algorithm
 uint64_t modinverse(uint64_t a, uint64_t m) {
     uint64_t b = m;
     int64_t x0 = 1;
@@ -112,7 +117,7 @@ uint64_t *encrypt(const char *message, size_t length, uint64_t pq, uint64_t e) {
 }
 
 char *decrypt(const uint64_t message[], size_t length, uint64_t p, uint64_t q, uint64_t e) {
-    uint64_t d = modinverse(e, (p-1)*(q-1));
+    uint64_t d = modinverse(e, (p-1)*(q-1));// d*e = 1 mod (p-1)(q-1)
     char *decryptedmessage = malloc((length+1)*sizeof(char));
     for (size_t i = 0; i < length; i++) {// M = C^d mod pq
         decryptedmessage[i] = (char)(modexp(message[i], d, p*q));
