@@ -79,8 +79,9 @@ uint64_t modexp(uint64_t base, uint64_t exponent, uint64_t modulus) {
     uint64_t result = 1;
     base = base % modulus;
     while (exponent > 0) {
-        if (exponent & 1)
+        if (exponent & 1) {
             result = (result * base) % modulus;
+        }
         base = (base * base) % modulus;
         exponent >>= 1;
     }
